@@ -9,6 +9,7 @@ export default function Display() {
 
   useEffect(() => {
    loadData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function loadData() {
@@ -36,6 +37,7 @@ export default function Display() {
           );
         })}
         </InfiniteScroll>
+
       </ul>
     </>
   );
