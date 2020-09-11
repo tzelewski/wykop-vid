@@ -3,13 +3,23 @@ import React from "react";
 export default function Entry({ entry }) {
   let videoId = entry.source_url.split("v=")[1];
 
+  const getYotubeUrl = action => `https://www.youtube.com/${action}/${videoId}`;
+
   return (
     <>
-      <h3>({entry.vote_count}) {entry.title}</h3>
+      <a href={getYotubeUrl("watch")}>
+        <h3>
+          ({entry.vote_count}) {entry.title}
+        </h3>
+      </a>
       <p>{entry.description}</p>
       <div className="iframe-container">
-      <iframe title="youtube preview" width="100%" src={`https://www.youtube.com/embed/${videoId}`}></iframe>
-      </div> 
+        <iframe
+          title="youtube preview"
+          width="100%"
+          src={getYotubeUrl("embed")}
+        ></iframe>
+      </div>
     </>
   );
 }
