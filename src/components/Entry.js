@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Entry({ entry }) {
-  let videoId = entry.source_url.split("v=")[1];
+  let videoId = entry.source.url.split("v=")[1];
 
   const getYotubeUrl = action => `https://www.youtube.com/${action}/${videoId}`;
 
@@ -9,7 +9,7 @@ export default function Entry({ entry }) {
     <>
       <a href={getYotubeUrl("watch")}>
         <h3>
-          ({entry.vote_count}) {entry.title}
+          ({entry.votes.count}) {entry.title}
         </h3>
       </a>
       <p>{entry.description}</p>

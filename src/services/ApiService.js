@@ -1,9 +1,16 @@
 import axios from "axios";
-import { ApiKey, ApiUrl } from "./../Settings";
+import { ApiUrl } from "./../Settings";
+
+export function config(token)  {
+  return { headers: { Authorization: `Bearer ${token}` }};
+  }
 
 export function getPosts(pageIndex) {
   return axios
-    .get(`${ApiUrl}/Links/Promoted/1/appkey/${ApiKey}/page/${pageIndex}`)
-    .then((r) => r.data.data)
-    .then((r) => r.filter((x) => x.source_url.includes("youtu")));
+    .post(`${ApiUrl}/auth`, {"data": {
+      "key": `"${process.env.REACT_APP_WYKOP_API_KEY}"`,
+      "secret": `"${process.env.REACT_APP_WYKOP_API_SECRET}"`
+    }})
+    .then((r) => axios.get(`${ApiUrl}/links?page=${pageIndex}&limit=80&type=homepage`, config(r.data.data.token)))
+    .then((r) => r.data.data.filter((x) => x.source?.url.includes("youtu")));
 }
